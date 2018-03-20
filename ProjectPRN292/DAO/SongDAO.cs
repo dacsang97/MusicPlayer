@@ -39,5 +39,30 @@ namespace ProjectPRN292.DAO
 
             return result;
         }
+
+        public int InsertSong(int songID, string name, string artist, string thumb, int playlistID, string url, string zid)
+        {
+            string query = @"Insert into Song(id, name, artist, thumb, playlistID, url, zid)
+                output INSERTED.ID
+                Values (@id, @name, @artist, @thumb, @playlistID, @url, @zid)";
+            int id = DataProvider.Instance.ExecuteScalar(query, 
+                new object[] { songID, name, artist, thumb, playlistID, url, zid });
+            return id;
+        }
+
+        public void UpdateSong(int songID, string name, string artist, string thumb, int playlistID, string url, string zid)
+        {
+            string query = @"Update Song Set (name = @name, artist = @artist, thumb = @thumb, 
+                        playlistID = @playlistID, url = @url, zid = @zid) Where id = @id"
+            DataProvider.Instance.ExecuteNonQuery(query,
+                new object[] { songID, name, artist, thumb, playlistID, url, zid });
+        }
+
+        public void DeleteSong(int songID)
+        {
+            DataProvider.Instance.ExecuteNonQuery(
+                "Delete from Song Where id = @id",
+                new object[] { songID });
+        }
     }
 }
