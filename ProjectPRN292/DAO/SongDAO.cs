@@ -45,9 +45,8 @@ namespace ProjectPRN292.DAO
             string query = @"Insert into Song(id, name, artist, thumb, playlistID, url, zid)
                 output INSERTED.ID
                 Values (@id, @name, @artist, @thumb, @playlistID, @url, @zid)";
-            int id = DataProvider.Instance.ExecuteScalar(query, 
+            return DataProvider.Instance.ExecuteScalar(query, 
                 new object[] { songID, name, artist, thumb, playlistID, url, zid });
-            return id;
         }
 
         public void UpdateSong(int songID, string name, string artist, string thumb, int playlistID, string url, string zid)
