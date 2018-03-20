@@ -40,27 +40,39 @@ namespace ProjectPRN292.DAO
             return result;
         }
 
-        public int InsertSong(int songID, string name, string artist, string thumb, int playlistID, string url, string zid)
+        public Song getSong(int songID)
         {
-            string query = @"Insert into Song(id, name, artist, thumb, playlistID, url, zid)
+            string query = @"Select * from Song where id = @songID ";
+            Song song = null;
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { songID });
+            foreach(DataRow item in data.Rows)
+            {
+                song = new Song(item);
+            }
+            return song;
+        }
+
+        public int InsertSong(string name, string artist, string thumb, int playlistID, string url, string zid)
+        {
+            string query = @"Insert into Song(name, artist, thumb, playlistID, url, zid)
                 output INSERTED.ID
-                Values (@id, @name, @artist, @thumb, @playlistID, @url, @zid)";
+                Values ( @name , @artist , @thumb , @playlistID , @url , @zid )";
             return DataProvider.Instance.ExecuteScalar(query, 
-                new object[] { songID, name, artist, thumb, playlistID, url, zid });
+                new object[] { name, artist, thumb, playlistID, url, zid });
         }
 
         public void UpdateSong(int songID, string name, string artist, string thumb, int playlistID, string url, string zid)
         {
-            string query = @"Update Song Set (name = @name, artist = @artist, thumb = @thumb, 
-                        playlistID = @playlistID, url = @url, zid = @zid) Where id = @id";
+            string query = @"Update Song Set name = @name , artist = @artist , thumb = @thumb , 
+                        playlistID = @playlistID , url = @url , zid = @zid Where id = @id ";
             DataProvider.Instance.ExecuteNonQuery(query,
-                new object[] { songID, name, artist, thumb, playlistID, url, zid });
+                new object[] { name, artist, thumb, playlistID, url, zid, songID });
         }
 
         public void DeleteSong(int songID)
         {
             DataProvider.Instance.ExecuteNonQuery(
-                "Delete from Song Where id = @id",
+                "Delete from Song Where id = @id ",
                 new object[] { songID });
         }
     }
