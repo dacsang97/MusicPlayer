@@ -30,7 +30,7 @@ namespace ProjectPRN292.DAO
 
         private DataProvider()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["NorthwindCS"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["ZingMP3DB"].ConnectionString;
         }
 
         public DataTable ExecuteQuery(string query, object[] parameter = null)
