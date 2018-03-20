@@ -53,7 +53,7 @@ namespace ProjectPRN292.DAO
         public void UpdateSong(int songID, string name, string artist, string thumb, int playlistID, string url, string zid)
         {
             string query = @"Update Song Set (name = @name, artist = @artist, thumb = @thumb, 
-                        playlistID = @playlistID, url = @url, zid = @zid) Where id = @id"
+                        playlistID = @playlistID, url = @url, zid = @zid) Where id = @id";
             DataProvider.Instance.ExecuteNonQuery(query,
                 new object[] { songID, name, artist, thumb, playlistID, url, zid });
         }
