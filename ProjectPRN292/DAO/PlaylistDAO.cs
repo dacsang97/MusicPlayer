@@ -41,7 +41,7 @@ namespace ProjectPRN292.DAO
             return result;
         }
 
-        public Playlist getPlaylist(int playlistID)
+        public Playlist GetPlaylist(int playlistID)
         {
             string query = @"Select * from Playlist where id = @id ";
             Playlist playlist = null;
