@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,14 @@ namespace ProjectPRN292.DTO
         public Playlist()
         {
 
+        }
+
+        public Playlist(DataRow row)
+        {
+            Id = (int)row["id"];
+            Name = row["name"].ToString();
+            CreatedAt = Convert.ToDateTime(row["created_at"]);
+            UpdatedAt = Convert.ToDateTime(row["updated_at"]);
         }
 
         public int Id
